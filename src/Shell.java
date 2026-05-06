@@ -1,44 +1,44 @@
 public class Shell {
-    public static void ejecutar(int[] arr){
+    public void sort(int[] array, boolean asc){
         System.out.println(" METODO SHELL ");
         System.out.println("Arreglo original:");
-        imprimirArreglo(arr);
+        imprimirArreglo(array);
         System.out.println();
         
-        int n = arr.length;
+        int n = array.length;
         int[] gaps = {4, 2, 1};
         int comp = 0, iter = 0, camb = 0;
 
         for(int gap : gaps) {
             for (int i = gap; i < n; i++){
                 iter++;
-                int key = arr[i];
+                int key = array[i];
                 int j = i;
                 comp++;
 
-                String c = (arr[j - gap]> key) ? "si" : "no";
-                imprimirFila("I" + iter, arr, gap, j - gap, i, arr[j -gap], key, c);
+                boolean condicion = asc ? (array[j - gap] > key) : (array[j - gap] < key);
+                imprimirFila("I" + iter, array, gap, j - gap, i, array[j -gap], key, condicion ? "si" : "no");
 
-                while (j >= gap && arr[j - gap] > key) {
+                while (j >= gap && (asc ? (array[j - gap] > key) : (array[j - gap] < key))) {
                     camb++;
-                    arr[j] = arr[j -gap];
+                    array[j] = array[j -gap];
                     if (iter == 9 || iter == 17){
-                        imprimirFila("", arr, gap, j - gap, j, arr[j - gap], key, "si");
+                        imprimirFila("", array, gap, j - gap, j, array[j - gap], key, "si");
                     }
 
                     j -= gap;
                     if(j >= gap) comp++;
                 }
-                arr[j] = key;
+                array[j] = key;
 
                 if(iter == 9 || iter == 17){
-                    imprimirFila("", arr, gap, j - gap, j, (j >= gap ? arr[j - gap] : 0), key, "no");
+                    imprimirFila("", array, gap, j - gap, j, (j >= gap ? array[j - gap] : 0), key, "no");
                 }
             }
             System.out.println();
         }
         System.out.println("END");
-        imprimirArreglo(arr);
+        imprimirArreglo(array);
         imprimirEstadisticas(comp, iter, camb);
     }
 

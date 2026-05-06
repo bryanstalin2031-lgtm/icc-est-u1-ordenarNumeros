@@ -1,43 +1,43 @@
 public class Insercion {
-    public static void ejecutar(int[] arr){
+    public void sort(int[] array, boolean asc){
         System.out.println(" METODO INSERCIÓN ");
         System.out.println(" Arreglo original:");
-        imprimirArreglo(arr);
+        imprimirArreglo(array);
         System.out.println();
 
-        int n = arr.length;
+        int n = array.length;
         int comparaciones = 0, iteraciones = 0, cambios = 0;
 
         for (int i = 1; i < n; i++){
             iteraciones++;
-            int key = arr[i];
+            int key = array[i];
             int j = i - 1;
 
+            boolean condicion = asc ? (array[j] > key) : (array[j] < key);
             comparaciones++;
-            String cambioStr = (arr[j] > key) ? "si" : "no";
-            imprimirFila("I" + iteraciones, arr, j, i, arr[j], key, cambioStr);
+            imprimirFila("I" + iteraciones, array, j, i, array[j], key, condicion ? "si" : "no");
 
-            while (j >= 0 && arr[j] > key) {
+            while (j >= 0 && (asc ? (array[j] > key) : (array[j] < key))) {
                 cambios++;
-                arr[j + 1] = arr[j];
+                array[j + 1] = array[j];
 
                 if (iteraciones >= 5) {
-                    imprimirFila("", arr, j, j +1, arr[j], key, "si");
+                    imprimirFila("", array, j, j +1, array[j], key, "si");
                 }
 
                 j--;
                 if (j >= 0) comparaciones++;
             }
-            arr[j + 1] = key;
+            array[j + 1] = key;
 
             if (iteraciones >= 5){
-                imprimirFila("", arr, j, j + 1, (j >= 0 ? arr[j] : 0), key, "no");
+                imprimirFila("", array, j, j + 1, (j >= 0 ? array[j] : 0), key, "no");
             }
             System.out.println();
         }
 
         System.out.println("END");
-        imprimirArreglo(arr);
+        imprimirArreglo(array);
         imprimirEstadisticas(comparaciones, iteraciones, cambios);
     }
     
